@@ -1,0 +1,11 @@
+{
+  "name": "rotiseria-lo-de-martita",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "start:frontend": "npm --prefix frontend run preview",
+    "start:backend": "npm --prefix backend run start"
+  }
+}
