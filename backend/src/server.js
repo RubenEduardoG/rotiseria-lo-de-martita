@@ -1,5 +1,6 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+// Esto configura dotenv de forma estándar: si encuentra un archivo .env local lo usa, y si está en internet usa las variables del servidor
+require('dotenv').config(); 
 const http = require('http');
 const createApp = require('./app');
 const connectDB = require('./config/db');
