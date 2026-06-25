@@ -13,7 +13,8 @@ function createApp() {
   app.use(helmet());
 
   // CORS - allow frontend origin via env or default
-  const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
+  /*const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';*/
+  app.use(cors({ origin: '*' }));
   app.use(cors({ origin: CORS_ORIGIN }));
 
   // JSON body parsing
