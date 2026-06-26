@@ -15,7 +15,7 @@ function createApp() {
   // CORS - allow frontend origin via env or default
   /*const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';*/
   app.use(cors({ origin: '*' }));
-  app.use(cors({ origin: CORS_ORIGIN }));
+  /*app.use(cors({ origin: CORS_ORIGIN }));*/
 
   // JSON body parsing
   app.use(express.json());
