@@ -1,5 +1,5 @@
 // Centraliza la base URL de la API para todo el frontend
-export const API_BASE = import.meta.env.VITE_API_URL || '';
+export const API_BASE = import.meta.env.VITE_API_URL || "https://rotiseria-lo-de-martita-1.onrender.com";
 
 // Construye una URL completa a partir de una ruta relativa
 export function apiUrl(path = '') {
