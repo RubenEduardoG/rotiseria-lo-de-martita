@@ -1,36 +1,76 @@
-import React, { createContext, useState, useEffect, useMemo, useContext } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 const CartContext = createContext();
-const STORAGE_KEY = 'martita_direccion';
+const ADDRESS_STORAGE_KEY = 'martita_direccion';
+const CART_STORAGE_KEY = 'martita_carrito';
+
+const readStoredCart = () => {
+  try {
+    const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+    if (!savedCart) return [];
+
+    const parsedCart = JSON.parse(savedCart);
+    return Array.isArray(parsedCart) ? parsedCart : [];
+  } catch {
+    return [];
+  }
+};
+
+const buildProductLineId = (producto = {}) => {
+  const baseId = producto.lineId || producto.id || producto._id || producto.nombre;
+
+  if (!baseId) {
+    return `producto-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  const variantSuffix = producto.variant ? `-${producto.variant}` : '';
+  const salsaSuffix = producto.salsa ? `-${producto.salsa}` : '';
+  const flavorSuffix = producto.empanadaFlavorSummary ? `-${producto.empanadaFlavorSummary}` : '';
+
+  return `${baseId}${variantSuffix}${salsaSuffix}${flavorSuffix}`;
+};
 
 export const CartProvider = ({ children }) => {
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(() => readStoredCart());
   const [direccionGuardada, setDireccionGuardada] = useState('');
 
   useEffect(() => {
-    const savedAddress = localStorage.getItem(STORAGE_KEY);
-    if (savedAddress) {
-      setDireccionGuardada(savedAddress);
+    try {
+      const savedAddress = localStorage.getItem(ADDRESS_STORAGE_KEY);
+      if (savedAddress) {
+        setDireccionGuardada(savedAddress);
+      }
+    } catch {
+      // Ignoramos errores de storage para no romper la experiencia
     }
   }, []);
 
-  const agregarAlCarrito = (producto) => {
-    const lineId = producto.id || producto.lineId || `${producto._id || producto.nombre}`;
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(carrito));
+    } catch {
+      // Ignoramos errores de storage para no romper la experiencia
+    }
+  }, [carrito]);
+
+  const agregarAlCarrito = useCallback((producto, cantidad = 1) => {
+    const lineId = buildProductLineId(producto);
+    const quantityToAdd = Number(cantidad) > 0 ? Number(cantidad) : 1;
 
     setCarrito((carritoActual) => {
       const existe = carritoActual.find((item) => item.id === lineId);
 
       if (existe) {
         return carritoActual.map((item) =>
-          item.id === lineId ? { ...item, cantidad: item.cantidad + 1 } : item
+          item.id === lineId ? { ...item, cantidad: item.cantidad + quantityToAdd } : item
         );
       }
 
-      return [...carritoActual, { ...producto, id: lineId, cantidad: 1 }];
+      return [...carritoActual, { ...producto, id: lineId, cantidad: quantityToAdd }];
     });
-  };
+  }, []);
 
-  const modificarCantidad = (id, cambio) => {
+  const modificarCantidad = useCallback((id, cambio) => {
     setCarrito((carritoActual) =>
       carritoActual
         .map((item) => {
@@ -41,57 +81,59 @@ export const CartProvider = ({ children }) => {
         })
         .filter((item) => item.cantidad > 0)
     );
-  };
+  }, []);
 
-  const removerProducto = (id) => {
+  const removerProducto = useCallback((id) => {
     setCarrito((carritoActual) => carritoActual.filter((item) => item.id !== id));
-  };
+  }, []);
 
-  const vaciarCarrito = () => setCarrito([]);
+  const vaciarCarrito = useCallback(() => setCarrito([]), []);
 
-  const guardarNuevaDireccion = (nuevaDireccion) => {
+  const guardarNuevaDireccion = useCallback((nuevaDireccion) => {
     setDireccionGuardada(nuevaDireccion);
-    localStorage.setItem(STORAGE_KEY, nuevaDireccion);
-  };
+
+    try {
+      if (nuevaDireccion) {
+        localStorage.setItem(ADDRESS_STORAGE_KEY, nuevaDireccion);
+        return;
+      }
+
+      localStorage.removeItem(ADDRESS_STORAGE_KEY);
+    } catch {
+      // Ignoramos errores de storage para no romper la experiencia
+    }
+  }, []);
 
   const totalLista = useMemo(
-    () => carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0),
+    () => carrito.reduce((acc, item) => acc + (Number(item.precio) || 0) * (Number(item.cantidad) || 0), 0),
     [carrito]
   );
 
   const amountTotal = useMemo(
-    () => carrito.reduce((acc, item) => acc + item.cantidad, 0),
+    () => carrito.reduce((acc, item) => acc + (Number(item.cantidad) || 0), 0),
     [carrito]
   );
 
- return (
-    <CartContext.Provider
-      value={{
-        // 🌟 Exportamos el estado original y el alias para el Header
-        carrito,
-        cart: carrito, 
-        
-        direccionGuardada,
-        
-        // 🌟 Exportamos la función original y el alias para las tarjetas
-        agregarAlCarrito,
-        onAdd: agregarAlCarrito, 
-        
-        modificarCantidad,
-        removerProducto,
-        vaciarCarrito,
-        guardarNuevaDireccion,
-        totalLista,
-        
-        // 🌟 Exportamos los contadores totales bajo todos los nombres posibles
-        amountTotal,
-        cartCount: amountTotal,
-        totalItems: amountTotal
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+  const value = useMemo(
+    () => ({
+      carrito,
+      cart: carrito,
+      direccionGuardada,
+      agregarAlCarrito,
+      onAdd: agregarAlCarrito,
+      modificarCantidad,
+      removerProducto,
+      vaciarCarrito,
+      guardarNuevaDireccion,
+      totalLista,
+      amountTotal,
+      cartCount: amountTotal,
+      totalItems: amountTotal,
+    }),
+    [agregarAlCarrito, amountTotal, carrito, direccionGuardada, guardarNuevaDireccion, modificarCantidad, removerProducto, totalLista, vaciarCarrito]
   );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => useContext(CartContext);

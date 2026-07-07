@@ -4,7 +4,7 @@ import { categories } from '../data/categories.js';
 import ProductCard from '../components/ProductCard.jsx';
 import { useCart } from '../context/CartContext.jsx';
 import { apiUrl } from '../utils/api.js';
-import bannerImage from '../assets/banner-martita.png';
+import bannerMartita from '../assets/banner-martita.png';
 
 const CATEGORY_ICONS = {
   pizzas: '🍕',
@@ -45,6 +45,8 @@ const Home = () => {
     };
     return aliases[raw] || raw;
   })();
+
+
 
   // 🎯 Lógica completamente corregida según los horarios de image_11928b.png
   useEffect(() => {
@@ -147,9 +149,9 @@ const Home = () => {
   return (
     <div className="home-page-container">
       
-      {/* HERO BANNER */}
+      {/* BANNER CENTRAL */}
       <div className="home-hero">
-        <img src={bannerImage} alt="Rotisería Lo de Martita" className="hero-banner-img" />
+        <img src={bannerMartita} alt="Banner Lo de Martita" className="hero-banner-img" />
       </div>
 
       {/* SECCIÓN INFORMACIÓN Y ESTADO */}
@@ -249,6 +251,10 @@ const Home = () => {
           )}
         </section>
       </div>
+
+      <footer style={{ marginTop: '48px', padding: '22px 20px 32px', borderTop: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', color: 'rgba(255,255,255,0.72)', fontSize: '0.95rem', background: 'rgba(0, 0, 0, 0.55)' }}>
+        © 2026 Lo de Martita. Todos los derechos reservados. Desarrollado por Rubén Gutiérrez.
+      </footer>
 
       {/* MODAL DE INFORMACIÓN ACTUALIZADO */}
       {showModal && (

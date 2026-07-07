@@ -1,7 +1,27 @@
 import React, { useState, useMemo } from 'react';
 import { formatPrice } from '../utils/formatPrice.js';
+import pizzasfondo from '../assets/pizzasfondo.png';
+import pastasfondo from '../assets/pastasfondo.png';
+import burgersfondo from '../assets/burgersfondo.png';
+import milanesasfondo from '../assets/milanesasfondo.png';
+import empanadasfondo from '../assets/empandasfondo.png';
+import guarnicionesfondo from '../assets/guarnicionesfondo.png';
 
 const EMPANADA_FLAVORS = ['Carne', 'Carne Cortada', 'Carne Cortada Frita', 'Carne Picante', 'Pollo', 'Jamón y Queso', 'Roquefort', 'Queso y Cebolla', 'Humita', 'Verdura', 'Capresse'];
+
+// Mapeo de categoría → imagen
+const getCategoryImage = (categoria) => {
+  const categoryMap = {
+    pizzas: pizzasfondo,
+    pastas: pastasfondo,
+    burgers: burgersfondo,
+    milanesas: milanesasfondo,
+    supremas: milanesasfondo,
+    empanadas: empanadasfondo,
+    guarniciones: guarnicionesfondo,
+  };
+  return categoryMap[categoria?.toLowerCase()] || pizzasfondo;
+};
 const PASTA_SALSA_OPTIONS = [
   { nombre: 'Estofado', precio: 11000 },
   { nombre: 'Bolognesa', precio: 11000 },
@@ -98,16 +118,44 @@ const handleAdd = () => {
   );
 
   return (
-    <article className="product-card chalkboard-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', background: '#1e1e1e', border: '1px solid #333', borderRadius: '16px', padding: '20px' }}>
-      <div className="product-body">
+    <article className="product-card chalkboard-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', background: '#1e1e1e', border: '1px solid #333', borderRadius: '16px', overflow: 'hidden' }}>
+      {/* IMAGEN DINÁMICA POR CATEGORÍA */}
+      <img 
+        src={getCategoryImage(product.categoria)} 
+        alt={product.categoria} 
+        className="product-image"
+        style={{ 
+          width: '100%', 
+          height: '160px', 
+          objectFit: 'cover',
+          borderTopLeftRadius: '15px',
+          borderTopRightRadius: '15px'
+        }} 
+      />
+      
+      <div className="product-body" style={{ padding: '0 20px' }}>
         <h3 className="product-title" style={{ color: '#fff', fontSize: '1.4rem', marginBottom: '4px' }}>{product.nombre}</h3>
-        {product.descripcion && <p className="product-desc" style={{ color: '#b0b0b0', fontSize: '0.9rem' }}>{product.descripcion}</p>}
+        {product.descripcion && (
+          <p className="product-desc" style={{ 
+            color: '#888888', 
+            fontSize: '0.75rem', 
+            marginTop: '4px',
+            lineHeight: '1.3',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
+            {product.descripcion}
+          </p>
+        )}
       </div>
 
-      {isBurger && <div className="burger-badge" style={{ background: '#ff730022', color: '#ff7300', padding: '6px 12px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '600', width: 'fit-content' }}>🍟 Papas fritas incluidas</div>}
+      {isBurger && <div className="burger-badge" style={{ background: '#ff730022', color: '#ff7300', padding: '6px 12px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '600', width: 'fit-content', marginLeft: '20px' }}>🍟 Papas fritas incluidas</div>}
 
       {variantOptions.length > 0 && (
-        <div className="variant-buttons" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div className="variant-buttons" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingLeft: '20px', paddingRight: '20px' }}>
           {variantOptions.map((variant, index) => (
             <button
               key={variant.nombre}
@@ -123,7 +171,7 @@ const handleAdd = () => {
       )}
 
       {hasSalsaSelection && (
-        <div className="salsa-selection">
+        <div className="salsa-selection" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
           <div className="selection-label" style={{ color: '#ff7300', fontWeight: '600', marginBottom: '6px' }}>Salsa</div>
           <div className="salsa-options" style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
             {PASTA_SALSA_OPTIONS.map((salsa, index) => (
@@ -141,7 +189,7 @@ const handleAdd = () => {
       )}
 
       {isEmpanada && (
-        <div className="empanada-selection" style={{ background: '#141414', padding: '12px', borderRadius: '12px', border: '1px solid #2a2a2a' }}>
+        <div className="empanada-selection" style={{ background: '#141414', padding: '12px 20px', borderRadius: '12px', border: '1px solid #2a2a2a', margin: '0 20px' }}>
           <div className="selection-label" style={{ color: '#ff7300', fontWeight: '600', marginBottom: '10px', fontSize: '0.95rem' }}>Sabores de empanadas</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '240px', overflowY: 'auto', paddingRight: '4px' }}>
             {EMPANADA_FLAVORS.map((flavor) => (
@@ -174,7 +222,7 @@ const handleAdd = () => {
         </div>
       )}
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: 'auto', paddingTop: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: 'auto', paddingTop: '10px', paddingLeft: '20px', paddingRight: '20px' }}>
         <span className="price" style={{ marginRight: 'auto', color: '#ff7300', fontSize: '1.4rem', fontWeight: '700' }}>{displayPriceText}</span>
         {!isEmpanada ? (
           <div className="qty-selector" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255, 146, 9, 0.08)', borderRadius: '10px', padding: '6px 8px', border: '1px solid rgba(255, 146, 9, 0.16)' }}>
@@ -211,7 +259,9 @@ const handleAdd = () => {
         aria-label={`Agregar ${product.nombre}`}
         disabled={isEmpanada && totalFlavorCount === 0}
         style={{ 
-          width: '100%', 
+          width: 'calc(100% - 40px)', 
+          marginLeft: '20px',
+          marginRight: '20px',
           justifyContent: 'center', 
           background: isEmpanada && totalFlavorCount === 0 ? '#444' : '#ff7300', 
           color: isEmpanada && totalFlavorCount === 0 ? '#888' : '#000',
