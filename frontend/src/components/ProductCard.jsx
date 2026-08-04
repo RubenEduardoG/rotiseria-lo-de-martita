@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import toast from 'react-hot-toast';
 import { formatPrice } from '../utils/formatPrice.js';
 import pizzasfondo from '../assets/pizzasfondo.png';
 import pastasfondo from '../assets/pastasfondo.png';
@@ -39,6 +40,7 @@ const ProductCard = ({ product, onAdd }) => {
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [selectedSalsaIndex, setSelectedSalsaIndex] = useState(0);
   const [flavorCounts, setFlavorCounts] = useState(createInitialFlavorCounts);
+  const [isPulseActive, setIsPulseActive] = useState(false);
 
   const variantOptions = Array.isArray(product.variantes) && product.variantes.length > 0 ? product.variantes : [];
   const selectedVariant = variantOptions[selectedVariantIndex] || null;
@@ -102,10 +104,11 @@ const handleAdd = () => {
       id: `${productId}${variantKey ? `-${variantKey}` : ''}${sauceKey ? `-${sauceKey}` : ''}${flavorSummary ? `-${flavorSummary}` : ''}`,
     };
 
-    // Despachamos el paquete completo
     onAdd(itemToAdd, cantidad);
-    
-    // Reseteamos los controladores visuales de la tarjeta
+    toast.success(`¡${product.nombre} agregado al carrito! 🛒`);
+    setIsPulseActive(true);
+    window.setTimeout(() => setIsPulseActive(false), 180);
+
     setQty(1);
     setSelectedSalsaIndex(0);
     setFlavorCounts(createInitialFlavorCounts());
@@ -254,7 +257,7 @@ const handleAdd = () => {
       </div>
 
       <button
-        className="btn-add"
+        className={`btn-add${isPulseActive ? ' btn-add--pulse' : ''}`}
         onClick={handleAdd}
         aria-label={`Agregar ${product.nombre}`}
         disabled={isEmpanada && totalFlavorCount === 0}

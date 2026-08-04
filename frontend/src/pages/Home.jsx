@@ -107,17 +107,28 @@ const Home = () => {
 
   const filteredProducts = useMemo(() => {
     const term = q.trim().toLowerCase();
+
     return products.filter((p) => {
       if (p.categoria?.toLowerCase() === 'pastas' && p.nombre?.toLowerCase() === 'salsas') {
         return false;
       }
-      const matchCategory = normalizedCategoryFilter ? p.categoria?.toLowerCase().trim() === normalizedCategoryFilter : true;
-      const matchName = p.nombre?.toLowerCase().trim().includes(term);
-      const matchDescription = p.descripcion?.toLowerCase().trim().includes(term);
+
+      const normalizedCategory = (p.categoria ?? p.category ?? '').toString().toLowerCase().trim();
+      const normalizedName = (p.nombre ?? p.name ?? '').toString().toLowerCase().trim();
+      const normalizedDescription = (p.descripcion ?? p.description ?? '').toString().toLowerCase().trim();
+      const normalizedCategoryFilterValue = normalizedCategoryFilter;
+      const matchCategory = term
+        ? true
+        : normalizedCategoryFilterValue ? normalizedCategory === normalizedCategoryFilterValue : true;
+
+      const matchName = normalizedName.includes(term);
+      const matchDescription = normalizedDescription.includes(term);
+      const matchCategoryName = normalizedCategory.includes(term);
       const matchKeywords = Array.isArray(p.keywords)
         ? p.keywords.some((keyword) => keyword?.toString().toLowerCase().trim().includes(term))
         : false;
-      const matchQuery = term ? matchName || matchDescription || matchKeywords : true;
+      const matchQuery = term ? matchName || matchDescription || matchCategoryName || matchKeywords : true;
+
       return matchCategory && matchQuery;
     });
   }, [products, q, normalizedCategoryFilter]);

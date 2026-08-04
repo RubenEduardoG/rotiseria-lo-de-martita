@@ -1,17 +1,36 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import logoImage from '../assets/favicon.png';
 
 const Header = () => {
-  // Traemos el carrito y la función para contar unidades desde el Context
   const { cart } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Calculamos el total de unidades sumando las cantidades de cada producto en el carrito
-  const totalItems = Array.isArray(cart) 
-    ? cart.reduce((sum, item) => sum + (item.cantidad || 1), 0) 
+  const totalItems = Array.isArray(cart)
+    ? cart.reduce((sum, item) => sum + (item.cantidad || 1), 0)
     : 0;
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setSearchTerm(params.get('q') || '');
+  }, [location.search]);
+
+  const handleSearchChange = (event) => {
+    const nextValue = event.target.value;
+    setSearchTerm(nextValue);
+
+    const params = new URLSearchParams(location.search);
+    if (nextValue.trim()) {
+      params.set('q', nextValue.trim());
+    } else {
+      params.delete('q');
+    }
+
+    navigate({ pathname: '/', search: params.toString() });
+  };
 
   return (
     <header style={{ background: '#141414', padding: '15px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', borderBottom: '1px solid #222' }}>
@@ -29,6 +48,8 @@ const Header = () => {
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', width: 'min(100%, 360px)' }}>
             <input
               type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
               placeholder="Buscar..."
               style={{ flex: 1, background: '#1e1e1e', border: '1px solid #333', color: '#fff', padding: '8px 12px', borderRadius: '6px' }}
             />

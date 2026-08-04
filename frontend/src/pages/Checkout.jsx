@@ -109,6 +109,7 @@ const Checkout = () => {
     const encodedText = encodeURIComponent(ticketText);
     const whatsappUrl = `https://wa.me/541153286242?text=${encodedText}`;
     window.open(whatsappUrl, '_blank');
+    vaciarCarrito();
   };
 
   const PlusIcon = () => (

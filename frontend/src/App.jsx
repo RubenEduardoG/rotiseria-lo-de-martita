@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Header from './components/Header.jsx';
 import Home from './pages/Home.jsx';
 import Checkout from './pages/Checkout.jsx';
@@ -10,6 +11,18 @@ const App = () => {
 
   return (
     <div className="app-shell">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 1800,
+          style: {
+            background: '#1e1e1e',
+            color: '#fff',
+            border: '1px solid #333',
+            borderRadius: '10px',
+          },
+        }}
+      />
       <Header />
       <main className="page-container">
         <Routes>
