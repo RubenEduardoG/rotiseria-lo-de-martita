@@ -1,0 +1,140 @@
+[
+  { "categoria": "pizzas", "nombre": "Muzzarella", "precio": 16000 },
+  { "categoria": "pizzas", "nombre": "Doble Muzza", "precio": 25900 },
+  { "categoria": "pizzas", "nombre": "Anchoa Salsa", "precio": 19500 },
+  { "categoria": "pizzas", "nombre": "Anchoa Muzza", "precio": 27000 },
+  { "categoria": "pizzas", "nombre": "Jamón", "precio": 23000 },
+  { "categoria": "pizzas", "nombre": "Jamón y Morrón", "precio": 27000 },
+  { "categoria": "pizzas", "nombre": "Jamón y Tomate", "precio": 27000 },
+  { "categoria": "pizzas", "nombre": "Jamón y Huevo", "precio": 28500 },
+  { "categoria": "pizzas", "nombre": "Jamón y Roquefort", "precio": 32000 },
+  { "categoria": "pizzas", "nombre": "Napolitana", "precio": 27000, "keywords": ["mila", "carne", "queso", "sandwich"] },
+  { "categoria": "pizzas", "nombre": "Napo con Jamón", "precio": 29500 },
+  { "categoria": "pizzas", "nombre": "Primavera", "precio": 28500 },
+  { "categoria": "pizzas", "nombre": "Muzza y Huevo", "precio": 26500 },
+  { "categoria": "pizzas", "nombre": "Calabresa", "precio": 27000 },
+  { "categoria": "pizzas", "nombre": "Fugazzetta", "precio": 27000 },
+  { "categoria": "pizzas", "nombre": "4 Quesos", "precio": 30000 },
+  { "categoria": "pizzas", "nombre": "Champiñon", "precio": 30000 },
+  { "categoria": "pizzas", "nombre": "Roquefort", "precio": 30000 },
+  { "categoria": "pizzas", "nombre": "Provenzal", "precio": 19500 },
+  { "categoria": "pizzas", "nombre": "Crudo Rúcula", "precio": 30000 },
+  { "categoria": "pizzas", "nombre": "Cochina", "precio": 33500 },
+  { "categoria": "pizzas", "nombre": "Ch. Bac. Hue.", "precio": 34500, "descripcion": "Cheddar, Bacon y Huevo" },
+  { "categoria": "pizzas", "nombre": "Provolone", "precio": 28500 },
+  { "categoria": "pizzas", "nombre": "Faina", "precio": 2000 },
+  { "categoria": "pastas", "nombre": "Platos básicos", "precio": 8500, "descripcion": "Ravioles de Pollo y Verdura / Ravioles de Ricota / Tallarines" },
+  { "categoria": "pastas", "nombre": "Sorrentinos de Jamón y Queso", "precio": 12000 },
+  { "categoria": "pastas", "nombre": "Salsas", "descripcion": "Selecciona tu salsa para pastas", "variantes": [
+    { "nombre": "Estofado", "precio": 11000 },
+    { "nombre": "Bolognesa", "precio": 11000 },
+    { "nombre": "Crema Verdeo y Bacon", "precio": 13500 },
+    { "nombre": "4 Quesos", "precio": 13500 },
+    { "nombre": "Salsa Blanca", "precio": 9900 },
+    { "nombre": "Fileto", "precio": 9300 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Sola", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 17800 },
+    { "nombre": "Suprema al plato", "precio": 19900 },
+    { "nombre": "Sandwich Milanesa", "precio": 19300 },
+    { "nombre": "Sandwich Suprema", "precio": 21400 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Con Queso", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 22500 },
+    { "nombre": "Suprema al plato", "precio": 24900 },
+    { "nombre": "Sandwich Milanesa", "precio": 24000 },
+    { "nombre": "Sandwich Suprema", "precio": 26500 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Jamón y Queso", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 25300 },
+    { "nombre": "Suprema al plato", "precio": 27900 },
+    { "nombre": "Sandwich Milanesa", "precio": 27000 },
+    { "nombre": "Sandwich Suprema", "precio": 29500 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Napolitana", "keywords": ["mila", "carne", "queso", "sandwich"], "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 25300 },
+    { "nombre": "Suprema al plato", "precio": 27900 },
+    { "nombre": "Sandwich Milanesa", "precio": 27000 },
+    { "nombre": "Sandwich Suprema", "precio": 29500 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Napo con Jamón", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 28800 },
+    { "nombre": "Suprema al plato", "precio": 31400 }
+  ] },
+  { "categoria": "milanesas", "nombre": "A Caballo", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 21000 },
+    { "nombre": "Suprema al plato", "precio": 24200 },
+    { "nombre": "Sandwich Milanesa", "precio": 23000 },
+    { "nombre": "Sandwich Suprema", "precio": 25300 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Cheddar y Bacon", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 29500 },
+    { "nombre": "Suprema al plato", "precio": 31500 },
+    { "nombre": "Sandwich Milanesa", "precio": 31000 },
+    { "nombre": "Sandwich Suprema", "precio": 33000 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Fugazzetta", "variantes": [
+    { "nombre": "Milanesa al plato", "precio": 29500 },
+    { "nombre": "Suprema al plato", "precio": 31400 },
+    { "nombre": "Sandwich Milanesa", "precio": 31000 },
+    { "nombre": "Sandwich Suprema", "precio": 33000 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Lechuga y Tomate", "variantes": [
+    { "nombre": "Sandwich Milanesa", "precio": 21500 },
+    { "nombre": "Sandwich Suprema", "precio": 23500 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Jamón, Queso y Huevo", "variantes": [
+    { "nombre": "Sandwich Suprema", "precio": 35500 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Completo", "variantes": [
+    { "nombre": "Sandwich Milanesa", "precio": 33000 },
+    { "nombre": "Sandwich Suprema", "precio": 35500 }
+  ] },
+  { "categoria": "milanesas", "nombre": "Che. Bac. Hue.", "variantes": [
+    { "nombre": "Sandwich Milanesa", "precio": 33000 },
+    { "nombre": "Sandwich Suprema", "precio": 35500 }
+  ] },
+  { "categoria": "guarniciones", "nombre": "Papas Fritas 700g", "precio": 12000 },
+  { "categoria": "guarniciones", "nombre": "Puré", "variantes": [
+    { "nombre": "Chico", "precio": 10000 },
+    { "nombre": "Grande", "precio": 15000 }
+  ] },
+  { "categoria": "guarniciones", "nombre": "Ensalada Mixta", "precio": 9000 },
+  { "categoria": "guarniciones", "nombre": "Ensalada Zanahoria, Tomate y Huevo", "precio": 11000 },
+  { "categoria": "guarniciones", "nombre": "Tortilla", "variantes": [
+    { "nombre": "Tortilla de Papas", "precio": 15500 },
+    { "nombre": "Tortilla Española", "precio": 18000 },
+    { "nombre": "Tortilla Rellena", "precio": 21000 }
+  ] },
+  { "categoria": "guarniciones", "nombre": "Agregados", "variantes": [
+    { "nombre": "Cheddar", "precio": 6000 },
+    { "nombre": "Bacon", "precio": 6000 },
+    { "nombre": "Verdeo", "precio": 2000 },
+    { "nombre": "Huevo Frito", "precio": 1500 },
+    { "nombre": "Provenzal", "precio": 4500 }
+  ] },
+  { "categoria": "burgers", "nombre": "Cheese", "descripcion": "Todas las hamburguesas incluyen papas", "variantes": [
+    { "nombre": "Simple", "precio": 15000 },
+    { "nombre": "Doble", "precio": 21000 }
+  ] },
+  { "categoria": "burgers", "nombre": "Clásica", "descripcion": "Muzza, Lechuga, Tomate", "variantes": [
+    { "nombre": "Simple", "precio": 15000 },
+    { "nombre": "Doble", "precio": 19000 }
+  ] },
+  { "categoria": "burgers", "nombre": "Americana", "descripcion": "Bbq, Cheddar, Bacon", "variantes": [
+    { "nombre": "Simple", "precio": 17500 },
+    { "nombre": "Doble", "precio": 20000 }
+  ] },
+  { "categoria": "burgers", "nombre": "Crazy", "descripcion": "Muzza, Jamón, Huevo", "variantes": [
+    { "nombre": "Simple", "precio": 17500 },
+    { "nombre": "Doble", "precio": 20000 }
+  ] },
+  { "categoria": "burgers", "nombre": "Tumbadora", "descripcion": "Bbq, Cheddar, Bacon, Cebolla, Huevo", "variantes": [
+    { "nombre": "Simple", "precio": 21000 },
+    { "nombre": "Doble", "precio": 26000 }
+  ] },
+  { "categoria": "burgers", "nombre": "Pechuga Tasty", "descripcion": "Tasty, Lechuga, Cheddar, Bacon", "precio": 17500 },
+  { "categoria": "burgers", "nombre": "Menú Infantil", "descripcion": "Burger + Nuggets + Lata de gaseosa", "precio": 17500 },
+  { "categoria": "empanadas", "nombre": "Empanadas por unidad", "precio": 3800, "descripcion": "Carnes y vegetales a elección" },
+  { "categoria": "empanadas", "nombre": "Docena de empanadas", "precio": 38000 }
+]
