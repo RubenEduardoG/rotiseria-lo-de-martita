@@ -1,3 +1,4 @@
+import ChatWidget from '../components/ChatWidget';
 import React, { useMemo, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { categories } from '../data/categories.js';
@@ -341,7 +342,7 @@ const Home = () => {
           </div>
         </div>
       )}
-
+      <ChatWidget />
     </div>
   );
 };
