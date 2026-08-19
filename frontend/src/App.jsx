@@ -4,6 +4,13 @@ import Header from './components/Header.jsx';
 import Home from './pages/Home.jsx';
 import Checkout from './pages/Checkout.jsx';
 import Admin from './pages/Admin.jsx';
+import ChatWidget from './components/ChatWidget.jsx';
+import Pizzas from './pages/Pizzas.jsx';
+import Hamburguesas from './pages/Hamburguesas.jsx';
+import Empanadas from './pages/Empanadas.jsx';
+import Guarniciones from './pages/Guarniciones.jsx';
+import Milanesas from './pages/Milanesas.jsx';
+import Pastas from './pages/Pastas.jsx';
 import { useAuth } from './context/AuthContext.jsx';
 
 const App = () => {
@@ -27,6 +34,12 @@ const App = () => {
       <main className="page-container">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/pizzas" element={<Pizzas />} />
+          <Route path="/hamburguesas" element={<Hamburguesas />} />
+          <Route path="/empanadas" element={<Empanadas />} />
+          <Route path="/guarniciones" element={<Guarniciones />} />
+          <Route path="/milanesas" element={<Milanesas />} />
+          <Route path="/pastas" element={<Pastas />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route
             path="/admin"
@@ -35,6 +48,7 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <ChatWidget />
     </div>
   );
 };
