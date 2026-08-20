@@ -258,7 +258,7 @@ img {
 
 .qty-btn { background: #2a2a2a; border: none; color: #fff; border-radius: 4px; width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .flavor-counter { color: var(--accent); font-weight: bold; min-width: 16px; text-align: center; }
-.empanada-total { padding: 6px 12px; border-radius: 8px; background: rgba(255,115,0,0.1); color: var(--accent); font-weight: 600; fontSize: 0.9rem; }
+.empanada-total { padding: 6px 12px; border-radius: 8px; background: rgba(255,115,0,0.1); color: var(--accent); font-weight: 600; font-size: 0.9rem; }
 
 .btn-add { display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: transform .12s, filter .12s; }
 .btn-add:hover { transform: translateY(-2px); filter: brightness(1.03); }
