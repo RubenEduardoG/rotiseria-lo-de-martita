@@ -1,5 +1,5 @@
 [
-  { "categoria": "pizzas", "nombre": "Muzzarella", "precio": 16000 },
+  { "categoria": "pizzas", "nombre": "Muzzarella", "prcdecio": 16000 },
   { "categoria": "pizzas", "nombre": "Doble Muzza", "precio": 25900 },
   { "categoria": "pizzas", "nombre": "Anchoa Salsa", "precio": 19500 },
   { "categoria": "pizzas", "nombre": "Anchoa Muzza", "precio": 27000 },
