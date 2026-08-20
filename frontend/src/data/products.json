@@ -135,5 +135,5 @@
   ] },
   { "categoria": "burgers", "nombre": "Pechuga Tasty", "descripcion": "Tasty, Lechuga, Cheddar, Bacon", "precio": 17500 },
   { "categoria": "burgers", "nombre": "Menú Infantil", "descripcion": "Burger + Nuggets + Lata de gaseosa", "precio": 17500 },
-  { "categoria": "empanadas", "nombre": "Empanadas por unidad", "precio": 3800, "descripcion": "Carnes y vegetales a elección" },
+  { "categoria": "empanadas", "nombre": "Empanadas por unidad", "precio": 3800, "descripcion": "Carnes y vegetales a elección" }
 ]

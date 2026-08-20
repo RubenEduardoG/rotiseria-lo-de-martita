@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ProductCard from '../components/ProductCard.jsx';
 import CategoryBanner from '../components/CategoryBanner.jsx';
 import { useCart } from '../context/CartContext.jsx';
-import { apiUrl } from '../utils/api.js';
+import productsData from '../data/products.json';
 
 const Pastas = () => {
   const { agregarAlCarrito } = useCart();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products] = useState(() => productsData.filter((p) => ((p.categoria || '').toString().toLowerCase() === 'pastas' && (p.nombre || '').toString().toLowerCase() !== 'salsas')));
+  const loading = false;
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function load() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(apiUrl('/api/products'));
-        if (!res.ok) throw new Error('Error cargando productos');
-        const data = await res.json();
-        // Excluir el item 'Salsas' que en Home se omite
-        setProducts(data.filter((p) => ((p.categoria || '').toString().toLowerCase() === 'pastas' && (p.nombre || '').toString().toLowerCase() !== 'salsas')));
-      } catch (err) {
-        setError(err.message || 'Error');
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, []);
 
   const handleAdd = (product, cantidad) => {
     for (let i = 0; i < cantidad; i++) agregarAlCarrito(product);
