@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const schedule = [
-  { day: 'Lunes', turnos: [{ label: 'Cerrado', type: 'closed' }] },
-  { day: 'Martes', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { day: 'Miércoles', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { day: 'Jueves', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { day: 'Viernes', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { day: 'Sábado', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { day: 'Domingo', turnos: [{ label: '20:00 a 23:00 hs', type: 'open' }] },
-];
+import { BUSINESS_HOURS, isBusinessOpen } from '../data/businessHours.js';
 
 const Home = () => {
   const [showHours, setShowHours] = useState(false);
-  const isOpen = true;
+  const isOpen = isBusinessOpen();
 
   const categories = [
     { name: 'Pizzas', icon: '🍕', path: '/pizzas', desc: 'Artesanales al molde' },
@@ -42,24 +33,11 @@ const Home = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
           <button
             type="button"
+            className={`status-badge status-badge--hero ${isOpen ? 'status-badge--open' : 'status-badge--closed'}`}
             onClick={() => setShowHours(true)}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 14px',
-              borderRadius: '999px',
-              border: '1px solid rgba(37, 211, 102, 0.5)',
-              background: 'rgba(16, 16, 16, 0.75)',
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: '0.8rem',
-              cursor: 'pointer',
-              boxShadow: '0 0 12px rgba(37, 211, 102, 0.25)',
-            }}
           >
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#25D366', boxShadow: '0 0 10px #25D366, 0 0 18px rgba(37, 211, 102, 0.7)', display: 'inline-block' }} />
-            Abierto ahora
+            <span className={`status-dot ${isOpen ? 'status-dot--open' : 'status-dot--closed'}`} />
+            {isOpen ? 'Abierto ahora' : 'Cerrado ahora'}
           </button>
 
           <h1 style={{ fontSize: '2.8rem', fontWeight: '800', color: '#fff', textTransform: 'uppercase', letterSpacing: '1px', margin: 0 }}>
@@ -150,16 +128,16 @@ const Home = () => {
             </button>
             <h3>Horarios de atención</h3>
             <div className="schedule-list">
-              {schedule.map(({ day, turnos }) => (
+              {BUSINESS_HOURS.map(({ day, shifts }) => (
                 <div key={day} className="schedule-row">
                   <span className="schedule-day">{day}</span>
                   <div className="schedule-turns">
-                    {turnos.map((turno, index) => (
+                    {(shifts.length ? shifts : [{ from: 'Cerrado', to: '', type: 'closed' }]).map((shift, index) => (
                       <span
-                        key={`${day}-${turno.label}-${index}`}
-                        className={`schedule-turn ${turno.type === 'closed' ? 'schedule-turn--closed' : 'schedule-turn--open'}`}
+                        key={`${day}-${shift.from}-${shift.to}-${index}`}
+                        className={`schedule-turn ${shift.type === 'closed' ? 'schedule-turn--closed' : 'schedule-turn--open'}`}
                       >
-                        {turno.label}
+                        {shift.type === 'closed' ? shift.from : `${shift.from} a ${shift.to} hs`}
                       </span>
                     ))}
                   </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { getScheduleSummary } from '../data/businessHours.js';
 
 // ======================================================
 // 🤖 AVATAR DE MARTITA BOT
@@ -184,7 +185,7 @@ const ChatWidget = () => {
 
 if (text.includes('horario') || text.includes('horarios') || text.includes('abren') || text.includes('hora') || text.includes('atienden')) {
   return {
-    text: '🕐 Atendemos de Martes a Domingo de 11:30 a 14:00 hs y de 20:00 a 23:00 hs. Los lunes permanecemos cerrados.',
+    text: `🕐 Atendemos ${getScheduleSummary()}`,
     quickReplies: ['🛵 Delivery', '🍕 Ver menú'],
   };
 }

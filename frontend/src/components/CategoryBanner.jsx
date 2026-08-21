@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
 import bannerImg from '../assets/banner-martita.png';
-
-const HORARIOS = [
-  { dia: 'Lunes', turnos: [{ label: 'Cerrado', type: 'closed' }] },
-  { dia: 'Martes', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { dia: 'Miércoles', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { dia: 'Jueves', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { dia: 'Viernes', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { dia: 'Sábado', turnos: [{ label: '11:30 a 14:00 hs', type: 'open' }, { label: '20:00 a 23:00 hs', type: 'open' }] },
-  { dia: 'Domingo', turnos: [{ label: '20:00 a 23:00 hs', type: 'open' }] },
-];
+import { BUSINESS_HOURS, isBusinessOpen } from '../data/businessHours.js';
 
 const CategoryBanner = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const isOpen = true;
+  const isOpen = isBusinessOpen();
 
   return (
     <div className="category-banner">
@@ -24,12 +15,12 @@ const CategoryBanner = () => {
           <div className="category-banner__title-group">
             <button
               type="button"
-              className="status-badge status-badge--floating"
+              className={`status-badge status-badge--floating ${isOpen ? 'status-badge--open' : 'status-badge--closed'}`}
               onClick={() => setShowInfo(true)}
               aria-label="Ver horarios de atención"
             >
               <span className={`status-dot ${isOpen ? 'status-dot--open' : 'status-dot--closed'}`} />
-              Abierto ahora
+              {isOpen ? 'Abierto ahora' : 'Cerrado ahora'}
             </button>
             <h2 className="category-banner__title">Lo de Martita</h2>
           </div>
@@ -51,16 +42,16 @@ const CategoryBanner = () => {
 
             <h3>Horarios de atención</h3>
             <div className="schedule-list">
-              {HORARIOS.map(({ dia, turnos }) => (
-                <div key={dia} className="schedule-row">
-                  <span className="schedule-day">{dia}</span>
+              {BUSINESS_HOURS.map(({ day, shifts }) => (
+                <div key={day} className="schedule-row">
+                  <span className="schedule-day">{day}</span>
                   <div className="schedule-turns">
-                    {turnos.map((turno, index) => (
+                    {(shifts.length ? shifts : [{ from: 'Cerrado', to: '', type: 'closed' }]).map((shift, index) => (
                       <span
-                        key={`${dia}-${turno.label}-${index}`}
-                        className={`schedule-turn ${turno.type === 'closed' ? 'schedule-turn--closed' : 'schedule-turn--open'}`}
+                        key={`${day}-${shift.from}-${shift.to}-${index}`}
+                        className={`schedule-turn ${shift.type === 'closed' ? 'schedule-turn--closed' : 'schedule-turn--open'}`}
                       >
-                        {turno.label}
+                        {shift.type === 'closed' ? shift.from : `${shift.from} a ${shift.to} hs`}
                       </span>
                     ))}
                   </div>
